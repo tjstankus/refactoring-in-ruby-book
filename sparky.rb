@@ -1,5 +1,4 @@
 NUMBER_OF_TOSSES = 1000
-BORDER_WIDTH = 50
 
 def toss
   2 * (rand(2)*2 - 1)
