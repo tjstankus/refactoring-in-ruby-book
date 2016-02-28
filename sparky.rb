@@ -2,11 +2,12 @@ require 'rspec'
 
 Random.srand(1)
 
+NUMBER_OF_TOSSES = 1000
+
 class Sparky
-  def initialize(points=nil)
-    @num_tosses = 1000
-    @tosses = values(@num_tosses)
-    @points = points || init_points
+  def initialize(tosses, points)
+    @tosses = tosses # values(@num_tosses)
+    @points = points # || init_points
   end
 
   def spark(centre_x, centre_y, value)
@@ -56,7 +57,6 @@ SVG_MARKUP
   end
 end
 
-NUMBER_OF_TOSSES = 1000
 
 def toss
   2 * (rand(2)*2 - 1)
@@ -119,9 +119,12 @@ Content-Length: #{data.length}
 
 puts "\n\n"
 
-puts svg(points)
+data_1 = "Content-Type: image/svg+xml\nContent-Length: #{data.length}\n\n#{data}"
+data_2 = svg(points)
+data_3 = Sparky.new($tosses, points).svg
 
-puts Sparky.new(points).svg
+puts "data_1 == data_2: #{data_1 == data_2}"
+puts "data_3 == data_2: #{data_3 == data_2}"
 
 RSpec.describe "Sparky" do
 
