@@ -23,17 +23,40 @@ $tosses = values(NUMBER_OF_TOSSES)
 points = []
 $tosses.each_index { |i| points << "#{i},#{200-$tosses[i]}" }
 
-data = "<svg xmlns=\"http://www.w3.org/2000/svg\"
-     xmlns:xlink=\"http://www.w3.org/1999/xlink\" >
+def svg(points)
+markup = <<SVG_MARKUP
+<svg xmlns=\"http://www.w3.org/2000/svg\"
+  xmlns:xlink=\"http://www.w3.org/1999/xlink\" >
   <!-- x-axis -->
   <line x1=\"0\" y1=\"200\" x2=\"#{NUMBER_OF_TOSSES}\" y2=\"200\"
-            stroke=\"#999\" stroke-width=\"1\" />
+    stroke=\"#999\" stroke-width=\"1\" />
   <polyline fill=\"none\" stroke=\"#333\" stroke-width=\"1\"
     points = \"#{points.join(' ')}\" />
   #{spark(NUMBER_OF_TOSSES-1, 200-$tosses[-1], $tosses[-1])}
-</svg>"
+</svg>
+SVG_MARKUP
+
+  length = markup.length
+  markup.prepend("Content-Type: image/svg+xml\nContent-Length: #{length}\n\n")
+end
+
+data = <<SVG_MARKUP
+<svg xmlns=\"http://www.w3.org/2000/svg\"
+  xmlns:xlink=\"http://www.w3.org/1999/xlink\" >
+  <!-- x-axis -->
+  <line x1=\"0\" y1=\"200\" x2=\"#{NUMBER_OF_TOSSES}\" y2=\"200\"
+    stroke=\"#999\" stroke-width=\"1\" />
+  <polyline fill=\"none\" stroke=\"#333\" stroke-width=\"1\"
+    points = \"#{points.join(' ')}\" />
+  #{spark(NUMBER_OF_TOSSES-1, 200-$tosses[-1], $tosses[-1])}
+</svg>
+SVG_MARKUP
 
 puts "Content-Type: image/svg+xml
 Content-Length: #{data.length}
 
 #{data}"
+
+puts "\n\n"
+
+puts svg(points)
