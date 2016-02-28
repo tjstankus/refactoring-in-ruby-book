@@ -22,4 +22,10 @@ Next steps, IMO
 ---------------
 
 - [ ] Write an integration-ish test
-  - [ ] Seed correctly to test random data
+
+So far, this has proven difficult. The code was in no way structured for
+testability. It turns out that before even getting it into a testable structure
+the issues around global variables, for one, come up. There's probably some sane
+way to get this into shape, but so far I have mostly been hacking around.
+
+  [ ] Seed correctly to test random data
