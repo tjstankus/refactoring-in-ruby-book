@@ -5,9 +5,9 @@ Random.srand(1)
 NUMBER_OF_TOSSES = 1000
 
 class Sparky
-  def initialize(tosses, points)
-    @tosses = tosses # values(@num_tosses)
-    @points = points # || init_points
+  def initialize(tosses=nil, points=nil)
+    @tosses = tosses || values(@num_tosses)
+    @points = points || init_points
   end
 
   def spark(centre_x, centre_y, value)
@@ -100,6 +100,10 @@ $tosses = values(NUMBER_OF_TOSSES)
 points = []
 $tosses.each_index { |i| points << "#{i},#{200-$tosses[i]}" }
 
+# Try hardcoding for test purposes
+$tosses = [0, 2, 4]
+points = ["0,200", "1,198", "2,196"]
+
 data = <<SVG_MARKUP
 <svg xmlns=\"http://www.w3.org/2000/svg\"
   xmlns:xlink=\"http://www.w3.org/1999/xlink\" >
@@ -112,12 +116,12 @@ data = <<SVG_MARKUP
 </svg>
 SVG_MARKUP
 
-puts "Content-Type: image/svg+xml
-Content-Length: #{data.length}
+# puts "Content-Type: image/svg+xml
+# Content-Length: #{data.length}
+#
+# #{data}"
 
-#{data}"
-
-puts "\n\n"
+# puts "\n\n"
 
 data_1 = "Content-Type: image/svg+xml\nContent-Length: #{data.length}\n\n#{data}"
 data_2 = svg(points)
