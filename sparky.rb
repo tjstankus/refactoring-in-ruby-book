@@ -1,6 +1,8 @@
 require 'rspec'
 
 class Sparky
+  attr_reader :num_tosses
+
   def initialize(tosses=nil, points=nil)
     @num_tosses = 1000
     @tosses = tosses || values(@num_tosses)
@@ -23,11 +25,11 @@ SVG_MARKUP
 <svg xmlns=\"http://www.w3.org/2000/svg\"
   xmlns:xlink=\"http://www.w3.org/1999/xlink\" >
   <!-- x-axis -->
-  <line x1=\"0\" y1=\"200\" x2=\"#{@num_tosses}\" y2=\"200\"
+  <line x1=\"0\" y1=\"200\" x2=\"#{num_tosses}\" y2=\"200\"
     stroke=\"#999\" stroke-width=\"1\" />
   <polyline fill=\"none\" stroke=\"#333\" stroke-width=\"1\"
     points = \"#{@points.join(' ')}\" />
-  #{spark(@num_tosses-1, 200-@tosses[-1], @tosses[-1])}
+  #{spark(num_tosses-1, 200-@tosses[-1], @tosses[-1])}
 </svg>
 SVG_MARKUP
 
